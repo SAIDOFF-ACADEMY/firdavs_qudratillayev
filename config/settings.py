@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'common',
     'drf_yasg',
     'rest_framework',
+    'rest_framework.authtoken',
     'order',
     'product',
     'user',
@@ -75,7 +76,7 @@ LANGUAGES = (
     ('ru', 'Russian'),
     ('uz', 'Uzbek'),
 )
-LANGUAGE_CODE = 'uz'
+LANGUAGE_CODE = 'ru'
 
 TEMPLATES = [
     {
@@ -90,6 +91,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'common.context_processors.project_languages',
             ],
         },
     },

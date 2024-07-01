@@ -14,8 +14,8 @@ class Product(BaseModel):
         return self.name
 
     class Meta:
-        verbose_name = _('Mahsulot')
-        verbose_name_plural = _('Mahsulotlar')
+        verbose_name = _('Product')
+        verbose_name_plural = _('Products')
 
 
 class FreeProduct(BaseModel):
@@ -25,3 +25,7 @@ class FreeProduct(BaseModel):
 
     def __str__(self):
         return self.product
+
+    class Meta:
+        verbose_name = _('Free Product')
+        verbose_name_plural = _('Free Products')

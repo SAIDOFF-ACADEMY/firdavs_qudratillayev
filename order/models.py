@@ -2,7 +2,7 @@ from django.db import models
 from product.models import Product
 from common.models import BaseModel
 from user.models import User
-
+from django.utils.translation import gettext_lazy as _
 
 class Order(BaseModel):
     costumer = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -18,5 +18,9 @@ class Order(BaseModel):
 
     def __str__(self):
         return self.product.name
+
+    class Meta:
+        verbose_name = _("Order")
+        verbose_name_plural = _("Orders")
 
 

@@ -39,21 +39,13 @@ class UserContactDetail(RetrieveUpdateDestroyAPIView):
     permission_classes = [IsAdminUser]
 
 
-class UserContactCreate(CreateAPIView):
-    serializer_class = UserContactSerializer
-    queryset = models.UserContactApplication
-    permission_classes = [IsAdminUser]
-
-
-class UserLoginView(GenericAPIView):
-    queryset = models.User.objects.all()
+class UserLoginView(CreateAPIView):
     serializer_class = UserLoginSerializer
 
-    def post(self, request, *args, **kwargs):
+    def post(self, request):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        data = serializer.save()
-        return Response(data, status=status.HTTP_200_OK)
+        return Response(serializer.save())
 
 
 class UserLogOutView(GenericAPIView):

@@ -19,9 +19,17 @@ class Page(BaseModel):
     def __str__(self):
         return self.title
 
+    class Meta:
+        verbose_name = _('Page')
+        verbose_name_plural = _('Pages')
+
 
 class GalleryPhoto(models.Model):
     photo = models.ImageField(upload_to="gallery/%Y/%m/%d/")
+
+    class Meta:
+        verbose_name = _('Gallery photo')
+        verbose_name_plural = _('Gallery photos')
 
 
 class Settings(BaseModel):
@@ -34,3 +42,5 @@ class Settings(BaseModel):
     working_horse_end = models.TimeField()
     telegram_bot = models.CharField(max_length=120)
 
+    class Meta:
+        verbose_name = _('Settings')

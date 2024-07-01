@@ -1,9 +1,8 @@
+
+from django.contrib.auth import authenticate
 from rest_framework import serializers
 from rest_framework.exceptions import AuthenticationFailed
-from django.contrib.auth import authenticate
 from rest_framework.authtoken.models import Token
-from rest_framework.response import Response
-
 from .models import User, UserContactApplication
 
 
@@ -36,32 +35,19 @@ class UserLoginSerializer(serializers.Serializer):
     email = serializers.EmailField()
     password = serializers.CharField(write_only=True)
 
-    # def create(self, validated_data):
-    #     email = validated_data['email']
-    #     password = validated_data['password']
-    #     user = authenticate(email=email, password=password)
-    #     try:
-    #         if user.is_superuser:
-    #             if user is None:
-    #                 raise AuthenticationFailed()
-    #             try:
-    #                 token = Token.objects.get(user=user)
-    #             except Token.DoesNotExist:
-    #                 token = Token.objects.create(user=user)
-    #             return {
-    #                 'token': token.key,
-    #             }
-    #     except AttributeError:
-    #         raise AuthenticationFailed()
-    def validate(self, attrs):
-        email = attrs.get('email')
-        password = attrs.get('password')
-        request = self.context.get('request')
-        user = authenticate(request, email=email, password=password)
+    def create(self, validated_data):
+        email = validated_data['email']
+        password = validated_data['password']
+
+        user = authenticate(email=email, password=password)
         if not user:
-            raise AuthenticationFailed("Email or password incorrect")
+            raise AuthenticationFailed
+
+        if not user.is_staff:
+            raise AuthenticationFailed("Only admins can log in")
+
+        token, _ = Token.objects.get_or_create(user=user)
 
         return {
-            'email': user.email,
-            'full_name': user.get_full_name,
+            "token": token.key
         }

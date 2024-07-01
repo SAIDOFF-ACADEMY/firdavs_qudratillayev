@@ -36,6 +36,7 @@ schema_view = get_schema_view(
     permission_classes=(permissions.AllowAny,),
 )
 urlpatterns = [
+    path("i18n/", include("django.conf.urls.i18n")),
     path('ckeditor/', include('ckeditor_uploader.urls')),
     path('admin/', admin.site.urls),
     path('', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
@@ -48,9 +49,12 @@ urlpatterns = [
     path('order/', include('order.urls')),
 ]
 
-urlpatterns = [
-    *i18n_patterns(*urlpatterns, prefix_default_language=False),
-]
+# urlpatterns = [
+#     *i18n_patterns(*urlpatterns, prefix_default_language=False),
+# ]
+urlpatterns += i18n_patterns(
+    path("admin/", admin.site.urls),
+)
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
