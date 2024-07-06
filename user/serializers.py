@@ -1,4 +1,3 @@
-
 from django.contrib.auth import authenticate
 from rest_framework import serializers
 from rest_framework.exceptions import AuthenticationFailed
@@ -40,6 +39,7 @@ class UserLoginSerializer(serializers.Serializer):
         password = validated_data['password']
 
         user = authenticate(email=email, password=password)
+
         if not user:
             raise AuthenticationFailed
 

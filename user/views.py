@@ -3,6 +3,9 @@ from rest_framework.response import Response
 from rest_framework.generics import GenericAPIView, ListAPIView, CreateAPIView, RetrieveUpdateDestroyAPIView
 from rest_framework.permissions import IsAdminUser, IsAuthenticated
 
+from rest_framework import generics
+from rest_framework.response import Response
+from user import serializers
 from user import models
 from .serializers import UserSerializer, UserContactCreateSerializer, UserLoginSerializer, UserContactSerializer
 
@@ -39,8 +42,8 @@ class UserContactDetail(RetrieveUpdateDestroyAPIView):
     permission_classes = [IsAdminUser]
 
 
-class UserLoginView(CreateAPIView):
-    serializer_class = UserLoginSerializer
+class UserLoginView(generics.GenericAPIView):
+    serializer_class = serializers.UserLoginSerializer
 
     def post(self, request):
         serializer = self.get_serializer(data=request.data)
@@ -48,11 +51,12 @@ class UserLoginView(CreateAPIView):
         return Response(serializer.save())
 
 
-class UserLogOutView(GenericAPIView):
-    permission_classes = [IsAuthenticated]
-
-    def get(self, request, *args, **kwargs):
-        if hasattr(request.user, 'auth_token'):
-            request.user.auth_token.delete()
-
-        return Response({'detail': "Successfully logged out"}, status=status.HTTP_204_NO_CONTENT)
+# class UserLogOutView(GenericAPIView):
+#     serializer_class = serializers.UserLoginSerializer
+#     permission_classes = [IsAuthenticated]
+#
+#     def get(self, request, *args, **kwargs):
+#         if hasattr(request.user, 'auth_token'):
+#             request.user.auth_token.delete()
+#
+#         return Response({'detail': "Successfully logged out"}, status=status.HTTP_204_NO_CONTENT)

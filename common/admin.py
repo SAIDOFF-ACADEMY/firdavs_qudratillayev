@@ -4,7 +4,7 @@ from modeltranslation.admin import TranslationAdmin
 
 
 @admin.register(Settings)
-class SettingsAdmin(TranslationAdmin):
+class SettingsAdmin(admin.ModelAdmin):
     def has_add_permission(self, request):
         if Settings.objects.exists():
             return False

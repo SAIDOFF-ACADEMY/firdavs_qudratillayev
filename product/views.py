@@ -7,7 +7,7 @@ from .serializers import ProductSerializer, FreeProductSerializer
 class ProductCreateApiView(generics.CreateAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
-    permission_classes = [IsAdminUser]
+    # permission_classes = [IsAdminUser]
 
 
 

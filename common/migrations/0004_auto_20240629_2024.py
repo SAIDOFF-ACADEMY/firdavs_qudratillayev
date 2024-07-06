@@ -20,7 +20,7 @@ class Migration(migrations.Migration):
     dependencies = [
         ('common', '0003_alter_settings_contact_phone'),
     ]
-
+    atomic = False
     operations = [
         migrations.RunPython(settings_create),
     ]

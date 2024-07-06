@@ -58,7 +58,7 @@ INSTALLED_APPS = [
     'ckeditor_uploader',
 ]
 CKEDITOR_UPLOAD_PATH = "uploads/"
-
+AUTH_USER_MODEL = 'user.User'
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -106,7 +106,6 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
-        'ATOMIC_REQUESTS': False,
     }
 }
 
@@ -156,4 +155,3 @@ LOCALE_PATHS = (
     BASE_DIR / 'locale',
 )
 
-AUTH_USER_MODEL = 'user.User'
