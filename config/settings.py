@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'drf_yasg',
     'rest_framework',
     'rest_framework.authtoken',
+    'psycopg2-binary',
     'order',
     'product',
     'user',
@@ -104,8 +105,12 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'fridavs',
+        'USER': 'firdavschere',
+        'PASSWORD': '****',
+        'HOST': '8001',   # Or the host where your PostgreSQL server is running
+        'PORT': '5432',        # Or the port your PostgreSQL server is listening on
     }
 }
 
